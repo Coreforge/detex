@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="DetexTest" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/DetexTest" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="../LICENSE" />
+		<Unit filename="../README" />
+		<Unit filename="../README.md" />
+		<Unit filename="../bits.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../bits.h" />
+		<Unit filename="../bptc-tables.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../bptc-tables.h" />
+		<Unit filename="../clamp.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../convert.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../dds.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../decompress-bc.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../decompress-bptc-float.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../decompress-bptc.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../decompress-eac.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../decompress-etc.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../decompress-rgtc.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../detex.h" />
+		<Unit filename="../division-tables.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../file-info.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../file-info.h" />
+		<Unit filename="../half-float.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../half-float.h" />
+		<Unit filename="../hdr.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../hdr.h" />
+		<Unit filename="../ktx.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../misc.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../misc.h" />
+		<Unit filename="../texture.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

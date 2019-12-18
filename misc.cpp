@@ -75,17 +75,17 @@ end:
 static __thread char *detex_error_message = NULL;
 
 void detexSetErrorMessage(const char *format, ...) {
-	if (detex_error_message != NULL)
+	/*if (detex_error_message != NULL)
 		free(detex_error_message);
 	va_list args;
 	va_start(args, format);
 	char *message;
 	// Allocate and set message.
-	//int r = vasprintf(&message, format, args);
-	//if (r < 0)
-	//	message = strdup("detexSetErrorMessage: vasprintf returned error");
+	int r = vasprintf(&message, format, args);
+	if (r < 0)
+		message = strdup("detexSetErrorMessage: vasprintf returned error");
 	va_end(args);
-	detex_error_message = message;
+	detex_error_message = message;*/
 }
 
 const char *detexGetErrorMessage() {

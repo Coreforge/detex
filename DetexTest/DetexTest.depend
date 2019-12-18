@@ -1,0 +1,231 @@
+# depslib dependency file v1.0
+1576629041 source:d:\users\shivan\documents\github\detex\bits.c
+	"detex.h"
+	"bits.h"
+
+1576631706 d:\users\shivan\documents\github\detex\detex.h
+	<stdlib.h>
+	<stdint.h>
+	<stdbool.h>
+
+1576629041 d:\users\shivan\documents\github\detex\bits.h
+
+1576629041 source:d:\users\shivan\documents\github\detex\bptc-tables.c
+	"detex.h"
+	"bits.h"
+	"bptc-tables.h"
+
+1576629041 d:\users\shivan\documents\github\detex\bptc-tables.h
+
+1576629041 source:d:\users\shivan\documents\github\detex\clamp.c
+	"detex.h"
+
+1576629041 source:d:\users\shivan\documents\github\detex\convert.c
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	"detex.h"
+	"half-float.h"
+	"hdr.h"
+	"misc.h"
+
+1576629041 d:\users\shivan\documents\github\detex\half-float.h
+
+1576629041 d:\users\shivan\documents\github\detex\hdr.h
+
+1576629041 d:\users\shivan\documents\github\detex\misc.h
+
+1576631847 source:d:\users\shivan\documents\github\detex\dds.c
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	"detex.h"
+	"file-info.h"
+	"misc.h"
+
+1576629041 d:\users\shivan\documents\github\detex\file-info.h
+
+1576629041 source:d:\users\shivan\documents\github\detex\decompress-bc.c
+	"detex.h"
+
+1576629041 source:d:\users\shivan\documents\github\detex\decompress-bptc-float.c
+	"detex.h"
+	"bits.h"
+	"bptc-tables.h"
+
+1576629041 source:d:\users\shivan\documents\github\detex\decompress-bptc.c
+	"detex.h"
+	"bits.h"
+	"bptc-tables.h"
+
+1576629041 source:d:\users\shivan\documents\github\detex\decompress-eac.c
+	"detex.h"
+
+1576629041 source:d:\users\shivan\documents\github\detex\decompress-etc.c
+	"detex.h"
+
+1576629041 source:d:\users\shivan\documents\github\detex\decompress-rgtc.c
+	"detex.h"
+
+1576629041 source:d:\users\shivan\documents\github\detex\division-tables.c
+	"detex.h"
+
+1576629041 source:d:\users\shivan\documents\github\detex\file-info.c
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<strings.h>
+	"detex.h"
+	"file-info.h"
+	"misc.h"
+
+1576629041 source:d:\users\shivan\documents\github\detex\half-float.c
+	<stdlib.h>
+	<math.h>
+	<float.h>
+	<fenv.h>
+	<pthread.h>
+	"detex.h"
+	"half-float.h"
+
+1576629490 source:d:\users\shivan\documents\github\detex\hdr.c
+	<stdlib.h>
+	<string.h>
+	<math.h>
+	<float.h>
+	<fenv.h>
+	"detex.h"
+	"half-float.h"
+	"hdr.h"
+	"misc.h"
+
+1576629041 source:d:\users\shivan\documents\github\detex\ktx.c
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	"detex.h"
+	"file-info.h"
+	"misc.h"
+
+1576630964 source:d:\users\shivan\documents\github\detex\misc.c
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<strings.h>
+	<stdarg.h>
+	"detex.h"
+
+1576629041 source:d:\users\shivan\documents\github\detex\texture.c
+	<string.h>
+	"detex.h"
+	"misc.h"
+
+1576631746 source:d:\users\shivan\documents\github\detex\detextest\main.c
+	<stdio.h>
+	<stdlib.h>
+	"..\detex.h"
+
+1576629041 source:d:\users\shivan\documents\github\detex\bits.cpp
+	"detex.h"
+	"bits.h"
+
+1576629041 source:d:\users\shivan\documents\github\detex\bptc-tables.cpp
+	"detex.h"
+	"bits.h"
+	"bptc-tables.h"
+
+1576629041 source:d:\users\shivan\documents\github\detex\clamp.cpp
+	"detex.h"
+
+1576629041 source:d:\users\shivan\documents\github\detex\convert.cpp
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	"detex.h"
+	"half-float.h"
+	"hdr.h"
+	"misc.h"
+
+1576629041 source:d:\users\shivan\documents\github\detex\decompress-bc.cpp
+	"detex.h"
+
+1576629041 source:d:\users\shivan\documents\github\detex\decompress-bptc-float.cpp
+	"detex.h"
+	"bits.h"
+	"bptc-tables.h"
+
+1576629041 source:d:\users\shivan\documents\github\detex\decompress-bptc.cpp
+	"detex.h"
+	"bits.h"
+	"bptc-tables.h"
+
+1576629041 source:d:\users\shivan\documents\github\detex\decompress-eac.cpp
+	"detex.h"
+
+1576629041 source:d:\users\shivan\documents\github\detex\decompress-etc.cpp
+	"detex.h"
+
+1576629041 source:d:\users\shivan\documents\github\detex\decompress-rgtc.cpp
+	"detex.h"
+
+1576629041 source:d:\users\shivan\documents\github\detex\division-tables.cpp
+	"detex.h"
+
+1576629041 source:d:\users\shivan\documents\github\detex\file-info.cpp
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<strings.h>
+	"detex.h"
+	"file-info.h"
+	"misc.h"
+
+1576629041 source:d:\users\shivan\documents\github\detex\half-float.cpp
+	<stdlib.h>
+	<math.h>
+	<float.h>
+	<fenv.h>
+	<pthread.h>
+	"detex.h"
+	"half-float.h"
+
+1576629490 source:d:\users\shivan\documents\github\detex\hdr.cpp
+	<stdlib.h>
+	<string.h>
+	<math.h>
+	<float.h>
+	<fenv.h>
+	"detex.h"
+	"half-float.h"
+	"hdr.h"
+	"misc.h"
+
+1576629041 source:d:\users\shivan\documents\github\detex\ktx.cpp
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	"detex.h"
+	"file-info.h"
+	"misc.h"
+
+1576630964 source:d:\users\shivan\documents\github\detex\misc.cpp
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<strings.h>
+	<stdarg.h>
+	"detex.h"
+
+1576629041 source:d:\users\shivan\documents\github\detex\texture.cpp
+	<string.h>
+	"detex.h"
+	"misc.h"
+
+1576631847 source:d:\users\shivan\documents\github\detex\dds.cpp
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	"detex.h"
+	"file-info.h"
+	"misc.h"
+
