@@ -25,11 +25,24 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #include "misc.h"
 
 //ShivanSpS - Memory to memory texture decompression, make sure there is enoght memory to store output
-unsigned long detexDDSMemoryToMemoryDecompression(char *bytes_in,char *bytes_out,int max_mipmaps)
+unsigned long detexDDSMemoryToMemoryDecompression(char *bytes_in,unsigned long size,char *bytes_out)
 {
     detexTexture **input_textures, **output_textures;
-	int nu_levels;
+	int nu_levels, max_mipmaps;
+	char comp[5];
     uint32_t output_format=DETEX_PIXEL_FORMAT_RGB8;
+
+    max_mipmaps=*(uint32_t *)(bytes_in + 28);
+    memcpy(comp,bytes_in+84,4);
+    comp[4]='\0';
+    //printf("File Mipmaps: %d\n",max_mipmaps);
+    //printf("Compresion Type: %s\n", comp);
+
+    if(strcmp(comp,"")==0)
+    {
+        memcpy(bytes_out,bytes_in,size);
+        return size;
+    }
 
     detexLoadDDSFileWithMipmaps_memory(bytes_in, max_mipmaps, &input_textures, &nu_levels);
 
@@ -51,6 +64,11 @@ unsigned long detexDDSMemoryToMemoryDecompression(char *bytes_in,char *bytes_out
     }
 
     unsigned long size_final=detexSaveDDSFileWithMipmaps_memory(output_textures,nu_levels,bytes_out);
+    if(size_final==-1)
+    {
+        memcpy(bytes_out,bytes_in,size);
+        return size;
+    }
     return size_final;
 }
 
@@ -69,10 +87,9 @@ unsigned long detexLoadDDSFileWithMipmaps_memory(char *bytes, int max_mipmaps, d
 	}
 
 	uint8_t header[124];
-	memcpy(&header,bytes,124);
+	memcpy(header,bytes,124);
 	bytes+=124;
     copied+=124;
-
 	uint8_t *headerp = &header[0];
 	int width = *(uint32_t *)(headerp + 12);
 	int height = *(uint32_t *)(headerp + 8);
@@ -89,6 +106,7 @@ unsigned long detexLoadDDSFileWithMipmaps_memory(char *bytes, int max_mipmaps, d
 	strncpy(four_cc, (char *)&header[80], 4);
 	four_cc[4] = '\0';
 	uint32_t dx10_format = 0;
+
 	if (strncmp(four_cc, "DX10", 4) == 0) {
 		uint32_t dx10_header[5];
 		memcpy(&dx10_header,bytes,20);
@@ -99,13 +117,14 @@ unsigned long detexLoadDDSFileWithMipmaps_memory(char *bytes, int max_mipmaps, d
 		uint32_t resource_dimension = dx10_header[1];
 		if (resource_dimension != 3) {
 			detexSetErrorMessage("detexLoadDDSFileWithMipmaps: Only 2D textures supported for .dds files");
-			return false;
+			return -1;
 		}
 	}
+
 	const detexTextureFileInfo *info = detexLookupDDSFileInfo(four_cc, dx10_format, pixel_format_flags, bitcount,red_mask, green_mask, blue_mask, alpha_mask);
 	if (info == NULL) {
-		detexSetErrorMessage("detexLoadDDSFileWithMipmaps: Unsupported format in .dds file (fourCC = %s, ""DX10 format = %d).", four_cc, dx10_format);
-		return false;
+		//printf("detexLoadDDSFileWithMipmaps: Unsupported format in .dds file (fourCC = %s, ""DX10 format = %d).", four_cc, dx10_format);
+		return -1;
 	}
 
 	// Maybe implement option to treat BC1 as BC1A?
@@ -119,9 +138,11 @@ unsigned long detexLoadDDSFileWithMipmaps_memory(char *bytes, int max_mipmaps, d
 	int extended_width = ((width + block_width - 1) / block_width) * block_width;
 	int extended_height = ((height + block_height - 1) / block_height) * block_height;
 	uint32_t flags = *(uint32_t *)(headerp + 4);
+
 	int nu_file_mipmaps = 1;
 	if (flags & 0x20000) {
 		nu_file_mipmaps = *(uint32_t *)(headerp + 24);
+
 //		if (nu_file_mipmaps > 1 && max_mipmaps == 1) {
 //			detexSetErrorMessage("Disregarding mipmaps beyond the first level.\n");
 //		}
@@ -132,6 +153,7 @@ unsigned long detexLoadDDSFileWithMipmaps_memory(char *bytes, int max_mipmaps, d
 		nu_mipmaps = max_mipmaps;
 	else
 		nu_mipmaps = nu_file_mipmaps;
+
 	detexTexture **textures = (detexTexture **)malloc(sizeof(detexTexture *) * nu_mipmaps);
 
 	for (int i = 0; i < nu_mipmaps; i++) {

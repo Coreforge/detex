@@ -824,7 +824,7 @@ DETEX_API bool detexCalculateDynamicRange(uint8_t *pixel_buffer, int nu_pixels, 
 */
 DETEX_API unsigned long detexLoadDDSFileWithMipmaps_memory(char *bytes, int max_mipmaps, detexTexture ***textures_out,int *nu_levels_out);
 DETEX_API unsigned long detexSaveDDSFileWithMipmaps_memory(detexTexture **textures, int nu_levels, char *bytes);
-DETEX_API unsigned long detexDDSMemoryToMemoryDecompression(char *bytes_in, char *bytes_out,int max_mipmaps);
+DETEX_API unsigned long detexDDSMemoryToMemoryDecompression(char *bytes_in, unsigned long size, char *bytes_out);
 /*
  * Texture file loading.
  */

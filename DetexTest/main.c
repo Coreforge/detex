@@ -4,7 +4,7 @@
 
 int main()
 {
-    FILE *f=fopen("D:\\tcf_arrow.dds","rb");
+    FILE *f=fopen("D:\\2_BAB_000001.dds","rb");
     char *c;
     fseek(f,0,SEEK_END);
     long size=ftell(f);
@@ -15,10 +15,10 @@ int main()
 
 
 
-    FILE *f2=fopen("D:\\tcf_arrow2.dds","wb");
+    FILE *f2=fopen("D:\\out2.dds","wb");
     char *d=(char*)malloc(size*20);
 
-    unsigned long size_final=detexDDSMemoryToMemoryDecompression(c,d,256);
+    unsigned long size_final=detexDDSMemoryToMemoryDecompression(c,size,d);
 
     fwrite(d,1,size_final,f2);
     fclose(f2);
