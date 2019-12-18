@@ -81,9 +81,9 @@ void detexSetErrorMessage(const char *format, ...) {
 	va_start(args, format);
 	char *message;
 	// Allocate and set message.
-	int r = vasprintf(&message, format, args);
-	if (r < 0)
-		message = strdup("detexSetErrorMessage: vasprintf returned error");
+	//int r = vasprintf(&message, format, args);
+	//if (r < 0)
+	//	message = strdup("detexSetErrorMessage: vasprintf returned error");
 	va_end(args);
 	detex_error_message = message;
 }
