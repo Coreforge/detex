@@ -20,7 +20,12 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #include <math.h>
 #include <float.h>
 #include <fenv.h>
+#if _MSC_VER
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#else
 #include <pthread.h>
+#endif
 
 #include "detex.h"
 #include "half-float.h"
@@ -35,26 +40,26 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  *
  *  This code uses the BSD License:
  *
- *  Redistribution and use in source and binary forms, with or without 
- *  modification, are permitted provided that the following conditions are 
+ *  Redistribution and use in source and binary forms, with or without
+ *  modification, are permitted provided that the following conditions are
  *  met:
  *
- *     * Redistributions of source code must retain the above copyright 
+ *     * Redistributions of source code must retain the above copyright
  *       notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in 
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in
  *       the documentation and/or other materials provided with the distribution
- *      
- *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- *  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
- *  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
- *  ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE 
- *  LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- *  CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
- *  SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
- *  INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
- *  CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
- *  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+ *
+ *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ *  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ *  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ *  ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+ *  LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ *  CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ *  SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ *  INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ *  CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ *  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  *
  * This file contains C code to convert between IEEE double, single, and half
@@ -112,7 +117,7 @@ void * DETEX_RESTRICT source, int numel)
     static int checkieee = 1;  // Flag to check for IEEE754, Endian, and word size
     double one = 1.0; // Used for checking IEEE754 floating point format
     uint32_t *ip; // Used for checking IEEE754 floating point format
-    
+
     if( checkieee ) { // 1st call, so check for IEEE754, Endian, and word size
         ip = (uint32_t *) &one;
         if( *ip ) { // If Big Endian, then no adjustment
@@ -129,12 +134,12 @@ void * DETEX_RESTRICT source, int numel)
         }
         checkieee = 0; // Everything checks out OK
     }
-    
+
     if( source == NULL || target == NULL ) { // Nothing to convert (e.g., imag part of pure real)
         return 0;
     }
 #endif
-    
+
     while( numel-- ) {
         x = *xp++;
         if( (x & 0x7FFFFFFFu) == 0 ) {  // Signed zero
@@ -208,7 +213,7 @@ void * DETEX_RESTRICT source, int numel)
     static int checkieee = 1;  // Flag to check for IEEE754, Endian, and word size
     double one = 1.0; // Used for checking IEEE754 floating point format
     uint32_t *ip; // Used for checking IEEE754 floating point format
-    
+
     if( checkieee ) { // 1st call, so check for IEEE754, Endian, and word size
         ip = (uint32_t *) &one;
         if( *ip ) { // If Big Endian, then no adjustment
@@ -225,11 +230,11 @@ void * DETEX_RESTRICT source, int numel)
         }
         checkieee = 0; // Everything checks out OK
     }
-    
+
     if( source == NULL || target == NULL ) // Nothing to convert (e.g., imag part of pure real)
         return 0;
 #endif
-    
+
     while( numel-- ) {
         h = *hp++;
         if( (h & 0x7FFFu) == 0 ) {  // Signed zero
@@ -279,6 +284,22 @@ static void detexCalculateHalfFloatTable() {
 	free(hf_buffer);
 }
 
+#if _MSC_VER
+static HANDLE mutex_half_float_table = NULL;
+
+void detexValidateHalfFloatTable() {
+	if (mutex_half_float_table == NULL)
+	{
+		HANDLE mutex = CreateMutex(NULL, FALSE, NULL);
+		if (InterlockedCompareExchangePointer((PVOID*)mutex_half_float_table, (PVOID)mutex, NULL) != NULL)
+			CloseHandle(mutex);
+	}
+	WaitForSingleObject(mutex_half_float_table, INFINITE);
+	if (detex_half_float_table == NULL)
+		detexCalculateHalfFloatTable();
+	ReleaseMutex(mutex_half_float_table);
+}
+#else
 static pthread_mutex_t mutex_half_float_table = PTHREAD_MUTEX_INITIALIZER;
 
 void detexValidateHalfFloatTable() {
@@ -287,7 +308,7 @@ void detexValidateHalfFloatTable() {
 		detexCalculateHalfFloatTable();
 	pthread_mutex_unlock(&mutex_half_float_table);
 }
-
+#endif
 // Conversion functions.
 
 void detexConvertHalfFloatToFloat(uint16_t *source_buffer, int n, float *target_buffer) {
@@ -295,7 +316,7 @@ void detexConvertHalfFloatToFloat(uint16_t *source_buffer, int n, float *target_
 	for (int i = 0; i < n; i++)
 		target_buffer[i] = detexGetFloatFromHalfFloat(source_buffer[i]);
 }
- 
+
 void detexConvertFloatToHalfFloat(float *source_buffer, int n, uint16_t *target_buffer) {
 	singles2halfp(target_buffer, source_buffer, n);
 }

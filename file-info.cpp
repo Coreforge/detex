@@ -19,11 +19,21 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#if !_MSC_VER
 #include <strings.h>
+#endif
 
 #include "detex.h"
 #include "file-info.h"
 #include "misc.h"
+
+#if _MSC_VER
+static DETEX_INLINE_ONLY int strcasecmp(const char *s1, const char *s2)
+{
+	return _stricmp(s1, s2);
+}
+#endif
+
 
 /*
 	The TextureInfo structure has the following fields:
@@ -164,7 +174,7 @@ static const DDSTextureFormatSynonym dds_synonym[] = {
 	{ DETEX_PIXEL_FORMAT_RG16, "DX10", 36 },
 	{ DETEX_PIXEL_FORMAT_R16, "DX10", 57 },
 	{ DETEX_PIXEL_FORMAT_SIGNED_RG16, "DX10", 38 },
-	{ DETEX_PIXEL_FORMAT_SIGNED_R16, "DX10", 59 }, 
+	{ DETEX_PIXEL_FORMAT_SIGNED_R16, "DX10", 59 },
 	{ DETEX_PIXEL_FORMAT_RG8, "DX10", 50 },
 	{ DETEX_PIXEL_FORMAT_R8, "DX10", 62 },
 	{ DETEX_PIXEL_FORMAT_SIGNED_RG8, "DX10", 52 },

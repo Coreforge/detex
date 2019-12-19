@@ -274,7 +274,7 @@ int nu_pixels, uint8_t * DETEX_RESTRICT target_pixel_buffer) {
 		uint32_t pixel = *source_pixel32_buffer;
 		*target_pixel16_buffer = (uint16_t)detexPack32RG8(
 			(detexPixel32GetR16(pixel) + 127) * 255 / 65535,
-			(detexPixel32GetG16(pixel) + 127) * 255 / 65535	
+			(detexPixel32GetG16(pixel) + 127) * 255 / 65535
 			);
 		source_pixel32_buffer++;
 		target_pixel16_buffer++;
@@ -305,7 +305,7 @@ int nu_pixels, uint8_t * DETEX_RESTRICT target_pixel_buffer) {
 		*target_pixel32_buffer = (uint32_t)detexPack32RGB8Alpha0xFF(
 			(detexPixel64GetR16(pixel) + 127) * 255 / 65535,
 			(detexPixel64GetG16(pixel) + 127) * 255 / 65535,
-			(detexPixel64GetB16(pixel) + 127) * 255 / 65535	
+			(detexPixel64GetB16(pixel) + 127) * 255 / 65535
 			);
 		source_pixel64_buffer++;
 		target_pixel32_buffer++;
@@ -322,7 +322,7 @@ int nu_pixels, uint8_t * DETEX_RESTRICT target_pixel_buffer) {
 			(detexPixel64GetR16(pixel) + 127) * 255 / 65535,
 			(detexPixel64GetG16(pixel) + 127) * 255 / 65535,
 			(detexPixel64GetB16(pixel) + 127) * 255 / 65535,
-			(detexPixel64GetA16(pixel) + 127) * 255 / 65535	
+			(detexPixel64GetA16(pixel) + 127) * 255 / 65535
 			);
 		source_pixel64_buffer++;
 		target_pixel32_buffer++;
@@ -704,7 +704,7 @@ uint8_t * DETEX_RESTRICT target_pixel_buffer) {
 static void ConvertPixel64RGBX16ToPixel48RGB16(uint8_t * DETEX_RESTRICT source_pixel_buffer, int nu_pixels,
 uint8_t * DETEX_RESTRICT target_pixel_buffer) {
 	uint64_t *source_pixel64_buffer = (uint64_t *)source_pixel_buffer;
-	uint16_t *target_pixel16_buffer = (uint16_t *)target_pixel16_buffer;
+	uint16_t *target_pixel16_buffer = (uint16_t *)target_pixel_buffer;
 	for (int i = 0; i < nu_pixels; i++) {
 		uint64_t pixel = *source_pixel64_buffer;
 		target_pixel16_buffer[0] = detexPixel64GetR16(pixel);
@@ -902,7 +902,7 @@ uint32_t *conversion) {
 	}
 	// First check direct conversions.
 	for (int i = 0; i < NU_CONVERSION_TYPES; i++)
-		if (detex_conversion_table[i].target_format == target_pixel_format 
+		if (detex_conversion_table[i].target_format == target_pixel_format
 		&& detex_conversion_table[i].source_format == source_pixel_format) {
 			conversion[0] = i;
 			CacheResult(source_pixel_format, target_pixel_format, 1, conversion);
@@ -1159,7 +1159,7 @@ uint32_t target_pixel_format) {
 				source_pixel_buffer = temp_pixel_buffer;
 			}
 		}
-	
+
 	}
 	FreeTemporaryPixelBuffers(&temp_pixel_buffer_info);
 	return true;

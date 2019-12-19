@@ -44,7 +44,15 @@ unsigned long detexDDSMemoryToMemoryDecompression(char *bytes_in,unsigned long s
         return size;
     }
 
-    detexLoadDDSFileWithMipmaps_memory(bytes_in, max_mipmaps, &input_textures, &nu_levels);
+    if(max_mipmaps==0)
+        max_mipmaps=1;
+
+    if(detexLoadDDSFileWithMipmaps_memory(bytes_in, max_mipmaps, &input_textures, &nu_levels)==-1)
+    {
+        memcpy(bytes_out,bytes_in,size);
+        return size;
+    }
+    //printf("READ Mipmaps: %d\n",nu_levels);
 
     output_textures = (detexTexture **)malloc(sizeof(detexTexture *) * nu_levels);
 
@@ -353,18 +361,23 @@ unsigned long detexSaveDDSFileWithMipmaps_memory(detexTexture **textures, int nu
 	*(uint32_t *)(header + 72) = 32;
 	*(uint32_t *)(header + 76) = 0x4;	// Pixel format flags (fourCC present).
 	bool write_dx10_header = false;
+
 	if (strncmp(info->dx_four_cc, "DX10", 4) == 0) {
+
 		write_dx10_header = true;
 		uint32_t *dx10_header32 = (uint32_t *)dx10_header;
 		*(uint32_t *)dx10_header32 = info->dx10_format;
 		*(uint32_t *)(dx10_header + 4) = 3;	// Resource dimensions = 2D.
 		*(uint32_t *)(dx10_header + 12) = 1;	// Array size.
 	}
+
 	if (!detexFormatIsCompressed(info->texture_format)) {
+
 		uint64_t red_mask, green_mask, blue_mask, alpha_mask;
 		detexGetComponentMasks(info->texture_format, &red_mask, &green_mask, &blue_mask, &alpha_mask);
 		int component_size = detexGetComponentSize(info->texture_format) * 8;
 		int nu_components = detexGetNumberOfComponents(info->texture_format);
+
 		// Note: Some readers don't like the absence of other fields (such as the component masks and pixel
 		// formats) for uncompressed data with a DX10 header.
 		*(uint32_t *)(header + 84) = nu_components * component_size;	// bit count
@@ -374,17 +387,20 @@ unsigned long detexSaveDDSFileWithMipmaps_memory(detexTexture **textures, int nu
 		*(uint32_t *)(header + 100) = alpha_mask;
 		// Format does not have a FOURCC code (legacy uncompressed format).
 		uint32_t pixel_format_flags = 0x40;	// Uncompressed RGB data present.
+
 		if (strlen(info->dx_four_cc) > 0)
 			pixel_format_flags |= 0x04;	// FourCC present.
 		if (detexFormatHasAlpha(info->texture_format))
 			pixel_format_flags |= 0x01;
 		*(uint32_t *)(header + 76) = pixel_format_flags;
 	}
+
 	if (strlen(info->dx_four_cc) > 0) {
 		// In case of DXTn or DX10 fourCC, set it.
 		strncpy((char *)(header + 80), info->dx_four_cc, 4);
 		// Pixel format field was already set to 0x4 (FourCC present) by default.
 	}
+
 	uint32_t caps = 0x1000;
 	if (nu_levels > 1)
 		caps |= 0x400008;
@@ -392,12 +408,12 @@ unsigned long detexSaveDDSFileWithMipmaps_memory(detexTexture **textures, int nu
 	int pitch = textures[0]->width * detexGetPixelSize(textures[0]->format);
 	if (!detexFormatIsCompressed(textures[0]->format))
 		*(uint32_t *)(header + 16) = pitch;
-	memcpy(bytes,&header,124);bytes+=124;copied+=124;//r = fwrite(header, 1, 124, f);
-
+	memcpy(bytes,&header,124);bytes+=124;copied+=124;
 	if (write_dx10_header) {
 		memcpy(bytes,&dx10_header,20);bytes+=20;copied+=20;
 
 	}
+
 	// Write data.n * block_size
 	for (int i = 0; i < nu_levels; i++) {
 		uint32_t pixel_size = detexGetPixelSize(textures[i]->format);

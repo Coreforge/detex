@@ -22,67 +22,31 @@
 		<Unit filename="../LICENSE" />
 		<Unit filename="../README" />
 		<Unit filename="../README.md" />
-		<Unit filename="../bits.c">
-			<Option compilerVar="CC" />
-		</Unit>
+		<Unit filename="../bits.cpp" />
 		<Unit filename="../bits.h" />
-		<Unit filename="../bptc-tables.c">
-			<Option compilerVar="CC" />
-		</Unit>
+		<Unit filename="../bptc-tables.cpp" />
 		<Unit filename="../bptc-tables.h" />
-		<Unit filename="../clamp.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="../convert.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="../dds.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="../decompress-bc.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="../decompress-bptc-float.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="../decompress-bptc.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="../decompress-eac.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="../decompress-etc.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="../decompress-rgtc.c">
-			<Option compilerVar="CC" />
-		</Unit>
+		<Unit filename="../clamp.cpp" />
+		<Unit filename="../convert.cpp" />
+		<Unit filename="../dds.cpp" />
+		<Unit filename="../decompress-bc.cpp" />
+		<Unit filename="../decompress-bptc-float.cpp" />
+		<Unit filename="../decompress-bptc.cpp" />
+		<Unit filename="../decompress-eac.cpp" />
+		<Unit filename="../decompress-etc.cpp" />
+		<Unit filename="../decompress-rgtc.cpp" />
 		<Unit filename="../detex.h" />
-		<Unit filename="../division-tables.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="../file-info.c">
-			<Option compilerVar="CC" />
-		</Unit>
+		<Unit filename="../division-tables.cpp" />
+		<Unit filename="../file-info.cpp" />
 		<Unit filename="../file-info.h" />
-		<Unit filename="../half-float.c">
-			<Option compilerVar="CC" />
-		</Unit>
+		<Unit filename="../half-float.cpp" />
 		<Unit filename="../half-float.h" />
-		<Unit filename="../hdr.c">
-			<Option compilerVar="CC" />
-		</Unit>
+		<Unit filename="../hdr.cpp" />
 		<Unit filename="../hdr.h" />
-		<Unit filename="../ktx.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="../misc.c">
-			<Option compilerVar="CC" />
-		</Unit>
+		<Unit filename="../ktx.cpp" />
+		<Unit filename="../misc.cpp" />
 		<Unit filename="../misc.h" />
-		<Unit filename="../texture.c">
-			<Option compilerVar="CC" />
-		</Unit>
+		<Unit filename="../texture.cpp" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>

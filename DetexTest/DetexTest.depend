@@ -3,7 +3,7 @@
 	"detex.h"
 	"bits.h"
 
-1576631706 d:\users\shivan\documents\github\detex\detex.h
+1576715351 d:\users\shivan\documents\github\detex\detex.h
 	<stdlib.h>
 	<stdint.h>
 	<stdbool.h>
@@ -120,7 +120,7 @@
 	"detex.h"
 	"misc.h"
 
-1576631746 source:d:\users\shivan\documents\github\detex\detextest\main.c
+1576715969 source:d:\users\shivan\documents\github\detex\detextest\main.c
 	<stdio.h>
 	<stdlib.h>
 	"..\detex.h"
@@ -137,7 +137,7 @@
 1576629041 source:d:\users\shivan\documents\github\detex\clamp.cpp
 	"detex.h"
 
-1576629041 source:d:\users\shivan\documents\github\detex\convert.cpp
+1576715819 source:d:\users\shivan\documents\github\detex\convert.cpp
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
@@ -171,7 +171,7 @@
 1576629041 source:d:\users\shivan\documents\github\detex\division-tables.cpp
 	"detex.h"
 
-1576629041 source:d:\users\shivan\documents\github\detex\file-info.cpp
+1576715413 source:d:\users\shivan\documents\github\detex\file-info.cpp
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
@@ -180,11 +180,12 @@
 	"file-info.h"
 	"misc.h"
 
-1576629041 source:d:\users\shivan\documents\github\detex\half-float.cpp
+1576715632 source:d:\users\shivan\documents\github\detex\half-float.cpp
 	<stdlib.h>
 	<math.h>
 	<float.h>
 	<fenv.h>
+	<windows.h>
 	<pthread.h>
 	"detex.h"
 	"half-float.h"
@@ -208,7 +209,7 @@
 	"file-info.h"
 	"misc.h"
 
-1576630964 source:d:\users\shivan\documents\github\detex\misc.cpp
+1576715295 source:d:\users\shivan\documents\github\detex\misc.cpp
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
@@ -221,7 +222,7 @@
 	"detex.h"
 	"misc.h"
 
-1576631847 source:d:\users\shivan\documents\github\detex\dds.cpp
+1576715959 source:d:\users\shivan\documents\github\detex\dds.cpp
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
