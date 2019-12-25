@@ -38,6 +38,7 @@ unsigned long detexDDSMemoryToMemoryDecompression(char *bytes_in,unsigned long s
     //printf("File Mipmaps: %d\n",max_mipmaps);
     //printf("Compresion Type: %s\n", comp);
 
+	//The texture is already uncompressed?
     if(strcmp(comp,"")==0)
     {
         memcpy(bytes_out,bytes_in,size);
@@ -49,8 +50,7 @@ unsigned long detexDDSMemoryToMemoryDecompression(char *bytes_in,unsigned long s
 
     if(detexLoadDDSFileWithMipmaps_memory(bytes_in, max_mipmaps, &input_textures, &nu_levels)==-1)
     {
-        memcpy(bytes_out,bytes_in,size);
-        return size;
+        return -1;
     }
     //printf("READ Mipmaps: %d\n",nu_levels);
 
@@ -72,11 +72,7 @@ unsigned long detexDDSMemoryToMemoryDecompression(char *bytes_in,unsigned long s
     }
 
     unsigned long size_final=detexSaveDDSFileWithMipmaps_memory(output_textures,nu_levels,bytes_out);
-    if(size_final==-1)
-    {
-        memcpy(bytes_out,bytes_in,size);
-        return size;
-    }
+
     return size_final;
 }
 
