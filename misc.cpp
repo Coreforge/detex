@@ -15,7 +15,7 @@ ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 */
-
+#define _CRT_SECURE_NO_WARNINGS 1
 #define _GNU_SOURCE
 #include <stdlib.h>
 #include <stdio.h>
@@ -28,8 +28,9 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #include "detex.h"
 
 #if _MSC_VER
+
 // Implementations of the additional POSIX string functions from strings.h, which do not appear in MSVC.
-int vasprintf(char ** DETEX_RESTRICT ret, const char * DETEX_RESTRICT format, va_list ap) {
+int vasprintf(char** DETEX_RESTRICT ret, const char* DETEX_RESTRICT format, va_list ap) {
 	int len = _vsnprintf(NULL, 0, format, ap);
 	if (len < 0)
 		return -1;
@@ -41,7 +42,7 @@ int vasprintf(char ** DETEX_RESTRICT ret, const char * DETEX_RESTRICT format, va
 	return len;
 }
 
-static DETEX_INLINE_ONLY int strncasecmp(const char *s1, const char *s2, size_t n)
+static DETEX_INLINE_ONLY int strncasecmp(const char* s1, const char* s2, size_t n)
 {
 	return _strnicmp(s1, s2, n);
 }
@@ -95,7 +96,7 @@ end:
 
 // Error handling.
 
-static __thread char *detex_error_message = NULL;
+static char *detex_error_message = NULL;
 
 void detexSetErrorMessage(const char *format, ...) {
 	/*if (detex_error_message != NULL)

@@ -36,7 +36,7 @@ int nu_pixels, uint8_t * DETEX_RESTRICT target_pixel_buffer) {
 
 static void ConvertPixel32RGBA8ToPixel32BGRA8(uint8_t * DETEX_RESTRICT source_pixel_buffer, int nu_pixels,
 uint8_t * DETEX_RESTRICT target_pixel_buffer) {
-	uint32_t *source_pixel32_buffer = (uint32_t *)source_pixel_buffer;
+	uint32_t* source_pixel32_buffer = (uint32_t*) source_pixel_buffer;
 	for (int i = 0; i < nu_pixels; i++) {
 		/* Swap R and B. */
 		uint32_t pixel = *source_pixel32_buffer;
@@ -867,10 +867,10 @@ detexConversionType detex_conversion_table[] = {
 
 // #define TRACE_MATCH_CONVERSION
 
-static __thread uint32_t cached_source_format = -1;
-static __thread uint32_t cached_target_format = -1;
-static __thread int cached_nu_conversions = - 1;
-static __thread uint32_t cached_conversion[4];
+static uint32_t cached_source_format = -1;
+static uint32_t cached_target_format = -1;
+static int cached_nu_conversions = - 1;
+static uint32_t cached_conversion[4];
 
 static void CacheResult(uint32_t source_format, uint32_t target_format, int n, uint32_t *conversion) {
 	cached_source_format = source_format;
