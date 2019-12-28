@@ -54,6 +54,9 @@ unsigned long detexDDSMemoryToMemoryDecompression(char *bytes_in,unsigned long s
     }
     //printf("READ Mipmaps: %d\n",nu_levels);
 
+    if(nu_levels==0)
+        nu_levels=1;
+
     output_textures = (detexTexture **)malloc(sizeof(detexTexture *) * nu_levels);
 
     for (int i = 0; i < nu_levels; i++) {
