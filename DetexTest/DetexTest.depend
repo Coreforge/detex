@@ -137,7 +137,7 @@
 1576629041 source:d:\users\shivan\documents\github\detex\clamp.cpp
 	"detex.h"
 
-1576715819 source:d:\users\shivan\documents\github\detex\convert.cpp
+1577418273 source:d:\users\shivan\documents\github\detex\convert.cpp
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
@@ -190,7 +190,7 @@
 	"detex.h"
 	"half-float.h"
 
-1576629490 source:d:\users\shivan\documents\github\detex\hdr.cpp
+1577418297 source:d:\users\shivan\documents\github\detex\hdr.cpp
 	<stdlib.h>
 	<string.h>
 	<math.h>
@@ -201,7 +201,7 @@
 	"hdr.h"
 	"misc.h"
 
-1576629041 source:d:\users\shivan\documents\github\detex\ktx.cpp
+1577418734 source:d:\users\shivan\documents\github\detex\ktx.cpp
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
@@ -209,7 +209,7 @@
 	"file-info.h"
 	"misc.h"
 
-1576715295 source:d:\users\shivan\documents\github\detex\misc.cpp
+1577418703 source:d:\users\shivan\documents\github\detex\misc.cpp
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
@@ -222,7 +222,7 @@
 	"detex.h"
 	"misc.h"
 
-1576715959 source:d:\users\shivan\documents\github\detex\dds.cpp
+1577510818 source:d:\users\shivan\documents\github\detex\dds.cpp
 	<stdlib.h>
 	<stdio.h>
 	<string.h>

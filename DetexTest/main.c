@@ -4,7 +4,7 @@
 
 int main()
 {
-    FILE *f=fopen("D:\\tcf_hellcat_v-glow.dds","rb");
+    FILE *f=fopen("D:\\debris01b.dds","rb");
     char *c;
     fseek(f,0,SEEK_END);
     long size=ftell(f);
@@ -15,7 +15,7 @@ int main()
 
 
 
-    FILE *f2=fopen("D:\\out3.dds","wb");
+    FILE *f2=fopen("D:\\outA.dds","wb");
     char *d=(char*)malloc(size*20);
 
     unsigned long size_final=detexDDSMemoryToMemoryDecompression(c,size,d);
