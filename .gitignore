@@ -6,3 +6,14 @@
 *.log
 *.lastbuildstate
 *.tlog
+*.pdb
+*.idb
+*.opendb
+*.suo
+*.db
+*.ipch
+*.FileListAbsolute.txt
+*.lib
+*.ilk
+*.ipdb
+*.iobj

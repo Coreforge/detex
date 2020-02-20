@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="bits.cpp"/>
+    <ClCompile Include="bptc-tables.cpp"/>
+    <ClCompile Include="clamp.cpp"/>
+    <ClCompile Include="convert.cpp"/>
+    <ClCompile Include="dds.cpp"/>
+    <ClCompile Include="decompress-bc.cpp"/>
+    <ClCompile Include="decompress-bptc.cpp"/>
+    <ClCompile Include="decompress-bptc-float.cpp"/>
+    <ClCompile Include="decompress-eac.cpp"/>
+    <ClCompile Include="decompress-etc.cpp"/>
+    <ClCompile Include="decompress-rgtc.cpp"/>
+    <ClCompile Include="division-tables.cpp"/>
+    <ClCompile Include="file-info.cpp"/>
+    <ClCompile Include="half-float.cpp"/>
+    <ClCompile Include="hdr.cpp"/>
+    <ClCompile Include="ktx.cpp"/>
+    <ClCompile Include="misc.cpp"/>
+    <ClCompile Include="texture.cpp"/>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="bits.h"/>
+    <ClInclude Include="bptc-tables.h"/>
+    <ClInclude Include="detex.h"/>
+    <ClInclude Include="file-info.h"/>
+    <ClInclude Include="half-float.h"/>
+    <ClInclude Include="hdr.h"/>
+    <ClInclude Include="misc.h"/>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LICENSE" />
+    <None Include="README" />
+    <None Include="README.md" />
+  </ItemGroup>
+</Project>

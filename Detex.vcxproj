@@ -20,9 +20,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{4A14E85C-0B77-42EE-A43B-45E5EA7B6031}</ProjectGuid>
+    <ProjectGuid>{0A64766C-9C0B-42DA-8987-94C24EC84444}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>DetexTextMSVC</RootNamespace>
+    <RootNamespace>Detex</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -40,13 +40,13 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -125,7 +125,6 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -144,24 +143,44 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DetexTextMSVC.cpp" />
+    <ClCompile Include="bits.cpp" />
+    <ClCompile Include="bptc-tables.cpp" />
+    <ClCompile Include="clamp.cpp" />
+    <ClCompile Include="convert.cpp" />
+    <ClCompile Include="dds.cpp" />
+    <ClCompile Include="decompress-bc.cpp" />
+    <ClCompile Include="decompress-bptc-float.cpp" />
+    <ClCompile Include="decompress-bptc.cpp" />
+    <ClCompile Include="decompress-eac.cpp" />
+    <ClCompile Include="decompress-etc.cpp" />
+    <ClCompile Include="decompress-rgtc.cpp" />
+    <ClCompile Include="division-tables.cpp" />
+    <ClCompile Include="file-info.cpp" />
+    <ClCompile Include="half-float.cpp" />
+    <ClCompile Include="hdr.cpp" />
+    <ClCompile Include="ktx.cpp" />
+    <ClCompile Include="misc.cpp" />
+    <ClCompile Include="texture.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\LICENSE" />
-    <None Include="..\..\README" />
-    <None Include="..\..\README.md" />
+    <ClInclude Include="bits.h" />
+    <ClInclude Include="bptc-tables.h" />
+    <ClInclude Include="detex.h" />
+    <ClInclude Include="file-info.h" />
+    <ClInclude Include="half-float.h" />
+    <ClInclude Include="hdr.h" />
+    <ClInclude Include="misc.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Detex.vcxproj">
-      <Project>{0a64766c-9c0b-42da-8987-94c24ec84444}</Project>
-    </ProjectReference>
+    <None Include="LICENSE" />
+    <None Include="README" />
+    <None Include="README.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
