@@ -154,6 +154,10 @@ int *nu_levels_out) {
 		// Divide by two for the next mipmap level, rounding down.
 		width >>= 1;
 		height >>= 1;
+		if (height == 0)
+			height = 1;
+		if (width == 0)
+			width = 1;
 		extended_width = ((width + block_width - 1) / block_width) * block_width;
 		extended_height = ((height + block_height - 1) / block_height) * block_height;
 		// Read mipPadding. But not if we have already read everything specified.
@@ -286,6 +290,10 @@ DETEX_API intptr_t detexLoadKTXFileWithMipmaps_memory(const unsigned char* bytes
 		// Divide by two for the next mipmap level, rounding down.
 		width >>= 1;
 		height >>= 1;
+		if (height == 0)
+			height = 1;
+		if (width == 0)
+			width = 1;
 		extended_width = ((width + block_width - 1) / block_width) * block_width;
 		extended_height = ((height + block_height - 1) / block_height) * block_height;
 		// Read mipPadding. But not if we have already read everything specified.

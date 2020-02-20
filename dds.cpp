@@ -179,6 +179,10 @@ unsigned long detexLoadDDSFileWithMipmaps_memory(char *bytes, int max_mipmaps, d
 		// Divide by two for the next mipmap level, rounding down.
 		width >>= 1;
 		height >>= 1;
+		if (height == 0)
+			height = 1;
+		if (width == 0)
+			width = 1;
 		extended_width = ((width + block_width - 1) / block_width) * block_width;
 		extended_height = ((height + block_height - 1) / block_height) * block_height;
 	}
@@ -294,6 +298,10 @@ bool detexLoadDDSFileWithMipmaps(const char *filename, int max_mipmaps, detexTex
 		// Divide by two for the next mipmap level, rounding down.
 		width >>= 1;
 		height >>= 1;
+		if (height == 0)
+			height = 1;
+		if (width == 0)
+			width = 1;
 		extended_width = ((width + block_width - 1) / block_width) * block_width;
 		extended_height = ((height + block_height - 1) / block_height) * block_height;
 	}
