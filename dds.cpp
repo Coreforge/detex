@@ -164,7 +164,7 @@ unsigned long detexLoadDDSFileWithMipmaps_memory(char *bytes, int max_mipmaps, d
 	detexTexture **textures = (detexTexture **)malloc(sizeof(detexTexture *) * nu_mipmaps);
 
 	for (int i = 0; i < nu_mipmaps; i++) {
-		int n = (extended_height / block_width) * (extended_width / block_height);
+		int n = (extended_width / block_width) * (extended_height / block_height);
 		// Allocate texture.
 		textures[i] = (detexTexture *)malloc(sizeof(detexTexture));
 		textures[i]->format = info->texture_format;
@@ -277,7 +277,7 @@ bool detexLoadDDSFileWithMipmaps(const char *filename, int max_mipmaps, detexTex
 		nu_mipmaps = nu_file_mipmaps;
 	detexTexture **textures = (detexTexture **)malloc(sizeof(detexTexture *) * nu_mipmaps);
 	for (int i = 0; i < nu_mipmaps; i++) {
-		int n = (extended_height / block_width) * (extended_width / block_height);
+		int n = (extended_width / block_width) * (extended_height / block_height);
 		// Allocate texture.
 		textures[i] = (detexTexture *)malloc(sizeof(detexTexture));
 		textures[i]->format = info->texture_format;
