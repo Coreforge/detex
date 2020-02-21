@@ -182,7 +182,7 @@ int *nu_levels_out) {
 //Carl Kenner - Modify Detex to load a KTX stored in memory
 DETEX_API intptr_t detexLoadKTXFileWithMipmaps_memory(const unsigned char* bytes, int max_mipmaps, detexTexture*** textures_out, int* nu_levels_out)
 {
-	intptr_t copied = 0;
+	size_t copied = 0;
 	if (bytes == NULL) {
 		detexSetErrorMessage("detexLoadKTXFileWithMipmaps_memory: bytes is NULL");
 		return -1;
@@ -225,13 +225,19 @@ DETEX_API intptr_t detexLoadKTXFileWithMipmaps_memory(const unsigned char* bytes
 		bytes_per_block = detexGetCompressedBlockSize(info->texture_format);
 	else
 		bytes_per_block = detexGetPixelSize(info->texture_format);
-	int block_width = info->block_width;
-	int block_height = info->block_height;
+	uint32_t block_width = info->block_width;
+	uint32_t block_height = info->block_height;
 	//	printf("File is %s texture.\n", info->text1);
-	int width = header[9];
-	int height = header[10];
-	int extended_width = ((width + block_width - 1) / block_width) * block_width;
-	int extended_height = ((height + block_height - 1) / block_height) * block_height;
+	uint32_t width = header[9];
+	uint32_t height = header[10];
+	// 1D textures will be output as though they were 2D textures with a height of 1
+	if (height == 0)
+		height = 1;
+	uint32_t depth = header[11];
+	size_t extended_width = (size_t)((width + block_width - 1) / block_width) * block_width;
+	size_t extended_height = (size_t)((height + block_height - 1) / block_height) * block_height;
+	uint32_t nu_array_layers = header[12];
+	uint32_t nu_cube_faces = header[13];
 	int nu_file_mipmaps = header[14];
 	//	if (nu_file_mipmaps > 1 && max_mipmaps == 1) {
 	//		detexSetErrorMessage("Disregarding mipmaps beyond the first level.\n");
@@ -264,8 +270,8 @@ DETEX_API intptr_t detexLoadKTXFileWithMipmaps_memory(const unsigned char* bytes
 			image_size_bytep[1] = image_size_bytep[2];
 			image_size_bytep[2] = temp;
 		}
-		int image_size = image_size_buffer[0];
-		int n = (extended_height / block_height) * (extended_width / block_width);
+		size_t image_size = image_size_buffer[0];
+		size_t n = (extended_height / block_height) * (extended_width / block_width);
 		if (image_size != n * bytes_per_block) {
 			for (int j = 0; j < i; j++)
 				free(textures[j]);
@@ -279,13 +285,28 @@ DETEX_API intptr_t detexLoadKTXFileWithMipmaps_memory(const unsigned char* bytes
 		textures[i] = (detexTexture*)malloc(sizeof(detexTexture));
 		textures[i]->format = info->texture_format;
 		textures[i]->data = (uint8_t*)malloc(n * bytes_per_block);
-		textures[i]->width = width;
-		textures[i]->height = height;
-		textures[i]->width_in_blocks = extended_width / block_width;
-		textures[i]->height_in_blocks = extended_height / block_height;
+		textures[i]->width = (int)width;
+		textures[i]->height = (int)height;
+		textures[i]->width_in_blocks = (int)(extended_width / block_width);
+		textures[i]->height_in_blocks = (int)(extended_height / block_height);
+		// for now, only copy the first layer, face, and z slice of our mipmap to our texture, because we can't output the other information yet
 		memcpy(textures[i]->data, bytes, n * bytes_per_block);
-		bytes += n * bytes_per_block;
-		copied += n * bytes_per_block;
+		// but we still have to read all those layers, faces, and z slices from the file
+		for (uint32_t layer = 0; layer < (nu_array_layers ? nu_array_layers : 1); layer++) {
+			for (uint32_t face = 0; face < (nu_cube_faces ? nu_cube_faces : 1); face++) {
+				for (uint32_t z = 0; z < (depth ? depth : 1); z++) {
+					bytes += n * bytes_per_block;
+					copied += n * bytes_per_block;
+				}
+				// face padding (in reality nu_bytes will probably always be 0 due to GL_UNPACK_ALIGNMENT = 4 and compressed formats having block sizes that are multiples of 4 bytes)
+				if (nu_cube_faces == 6 && nu_array_layers == 0)
+				{
+					size_t nu_bytes = (4 - (copied % 4)) % 4;
+					bytes += nu_bytes;
+					copied += nu_bytes;
+				}
+			}
+		}
 
 		// Divide by two for the next mipmap level, rounding down.
 		width >>= 1;
@@ -294,15 +315,16 @@ DETEX_API intptr_t detexLoadKTXFileWithMipmaps_memory(const unsigned char* bytes
 			height = 1;
 		if (width == 0)
 			width = 1;
-		extended_width = ((width + block_width - 1) / block_width) * block_width;
-		extended_height = ((height + block_height - 1) / block_height) * block_height;
+		extended_width = (size_t)((width + block_width - 1) / block_width) * block_width;
+		extended_height = (size_t)((height + block_height - 1) / block_height) * block_height;
 		// Read mipPadding. But not if we have already read everything specified.
 		char buffer[4];
 		if (i + 1 < nu_mipmaps) {
-			int nu_bytes = 3 - ((image_size + 3) % 4);
+			size_t nu_bytes = (4 - (copied % 4)) % 4;
+			//int nu_bytes = 3 - ((image_size + 3) % 4);
 			memcpy(buffer, bytes, nu_bytes);
-			bytes += n * nu_bytes;
-			copied += n * nu_bytes;
+			bytes += nu_bytes;
+			copied += nu_bytes;
 		}
 	}
 	*nu_levels_out = nu_mipmaps;
