@@ -109,6 +109,11 @@ uint8_t * DETEX_RESTRICT pixel_buffer, uint32_t pixel_format) {
 		return detexConvertPixels(texture->data, texture->width * texture->height,
 			detexGetPixelFormat(texture->format), pixel_buffer, pixel_format);
 	}
+	uint32_t compressed_format = detexGetCompressedFormat(texture->format);
+	if (compressed_format <= 0 || compressed_format > 19 || !decompress_function[compressed_format])
+	{
+		return false;
+	}
 	const uint8_t *data = texture->data;
 	int pixel_size = detexGetPixelSize(pixel_format);
 	bool result = true;
