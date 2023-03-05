@@ -45,3 +45,5 @@ const detexTextureFileInfo *detexLookupKTXFileInfo(int gl_internal_format, int g
 // Look-up texture file info for DDS file format based on DX format parameters.
 const detexTextureFileInfo *detexLookupDDSFileInfo(const char *four_cc, int dx10_format, uint32_t pixel_format_flags, int bitcount, uint32_t red_mask, uint32_t green_mask, uint32_t blue_mask, uint32_t alpha_mask);
 
+// Look-up texture file info for dx10 format
+const detexTextureFileInfo *detexGetFormatFromDX10Format(int dx10_format);

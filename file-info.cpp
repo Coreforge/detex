@@ -240,6 +240,15 @@ enum {
 	DDPF_RGB = 0x40,
 };
 
+const detexTextureFileInfo *detexGetFormatFromDX10Format(int dx10_format){
+	for(int i = 0; i < DETEX_NU_TEXTURE_INFO_ENTRIES; i++){
+		if(texture_info[i].dx10_format == dx10_format){
+			return &texture_info[i];
+		}
+	}
+	return NULL;
+}
+
 // Look-up texture file info for DDS file format based on DX format parameters.
 const detexTextureFileInfo *detexLookupDDSFileInfo(const char *four_cc, int dx10_format,
 uint32_t pixel_format_flags, int bitcount, uint32_t red_mask, uint32_t green_mask,
