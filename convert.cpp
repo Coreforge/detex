@@ -873,6 +873,7 @@ static int cached_nu_conversions = - 1;
 static uint32_t cached_conversion[4];
 
 static void CacheResult(uint32_t source_format, uint32_t target_format, int n, uint32_t *conversion) {
+	return;	// caching this doesn't work well together with multithreading
 	cached_source_format = source_format;
 	cached_target_format = target_format;
 	cached_nu_conversions = n;
